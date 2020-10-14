@@ -168,8 +168,8 @@ class User{
 			if($errors ===0){
 				if($fileSize <= 2097152){
 	 				$root = 'users/' . $filename;
-				  	 move_uploaded_file($fileTmp,$root);
-					 return $root;
+				  	move_uploaded_file($fileTmp,$root);
+					return $root;
 
 				}else{
 						$GLOBALS['imgError'] = "File Size is too large";
