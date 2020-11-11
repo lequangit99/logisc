@@ -6,6 +6,8 @@
 	include 'core/init.php';
 	$user_id = $_SESSION['user_id'];
 	$user    = $getFromU->userData($user_id);
+	$notify  = $getFromM->getNotificationCount($user_id);
+
  
  	if($getFromU->loggedIn() === false){
 		header('Location: index.php');
@@ -37,7 +39,7 @@
 ?>
 <html>
 	<head>
-		<title>Password Settings - Tweety</title>
+		<title>Mật khẩu - Logisc</title>
 		<meta charset="UTF-8" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>
   		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -54,37 +56,45 @@
 	  <div class="nav">
 		<div class="nav-left">
 			<ul>
-				<li><a href="<?php echo BASE_URL;?>"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
- 					<li><a href="<?php echo BASE_URL;?>i/notifications"><i class="fa fa-bell" aria-hidden="true"></i>Notifications</a></li>
-					<li id="messagePopup"><i class="fa fa-envelope" aria-hidden="true"></i>Messages</li>
- 			</ul>
+				<li><a href="<?php echo BASE_URL;?>"><i class="fa fa-home" aria-hidden="true"></i>Trang chủ</a></li>
+				<?php if($getFromU->loggedIn()=== true){?>
+					<li><a href="<?php echo BASE_URL;?>i/notifications"><i class="fa fa-bell" aria-hidden="true"></i>Thông báo<span id="notificaiton"><?php if($notify->totalN > 0){echo '<span class="span-i">'.$notify->totalN.'</span>';}?></span></a></li>
+					<li id="messagePopup"><i class="fa fa-envelope" aria-hidden="true"></i>Tin nhắn<span id="messages"><?php if($notify->totalM > 0){echo '<span class="span-i">'.$notify->totalM.'</span>';}?></span></li>
+				<?php }?>
+			</ul>
 		</div><!-- nav left ends-->
 		<div class="nav-right">
 			<ul>
-				<li><input type="text" placeholder="Search" class="search"/><i class="fa fa-search" aria-hidden="true"></i>
+				<li><input type="text" placeholder="Tìm kiếm" class="search"/><i class="fa fa-search" aria-hidden="true"></i>
 					<div class="search-result"> 			
 					</div>
 				</li>
- 				<li class="hover"><label class="drop-label" for="drop-wrap1"><img src="<?php echo BASE_URL.$user->profileImage;?>"/></label>
+			<?php if($getFromU->loggedIn() === true){?>
+				<li class="hover"><label class="drop-label" for="drop-wrap1"><img src="<?php echo BASE_URL.$user->profileImage;?>"/></label>
 				<input type="checkbox" id="drop-wrap1">
 				<div class="drop-wrap">
 					<div class="drop-inner">
 						<ul>
 							<li><a href="<?php echo BASE_URL.$user->username;?>"><?php echo $user->username;?></a></li>
-							<li><a href="<?php echo BASE_URL;?>settings/account">Settings</a></li>
-							<li><a href="<?php echo BASE_URL;?>includes/logout.php">Log out</a></li>
+							<li><a href="<?php echo BASE_URL;?>settings/account">Cài đặt</a></li>
+							<li><a href="<?php echo BASE_URL;?>includes/logout.php">Đăng xuất</a></li>
 						</ul>
 					</div>
 				</div>
 				</li>
 				<li><label class="addTweetBtn" for="pop-up-tweet">Tweet</label></li>
-				 
- 			</ul>
+				<?php } else{
+							echo '<li><a href="'.BASE_URL.'/index.php">Đã có tài khoản? Đăng nhập!</a></li>';
+						}
+				?>
+			</ul>
 		</div><!-- nav right ends-->
 	</div><!-- nav ends -->
 	<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/popupForm.js"></script>
 	<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/hashtag.js"></script>
 	<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/search.js"></script>
+	<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/notification.js"></script>
+
  
 	</div><!-- nav container ends -->
 </div><!-- header wrapper end -->
@@ -109,7 +119,7 @@
 					<li>
 						<a href="<?php echo BASE_URL;?>settings/account" class="bold">
 						<div>	
-							Account
+							Tài khoản
 							<span><i class="fa fa-angle-right" aria-hidden="true"></i></span>
 						</div>
 						</a>
@@ -117,7 +127,7 @@
 					<li>
 						<a href="#">
 						<div>
-							Password
+							Mật khẩu
 							<span><i class="fa fa-angle-right" aria-hidden="true"></i></span>
 						</div>
 						</a>
@@ -132,14 +142,14 @@
 		<div class="inner-righter">
 			<div class="acc">
 				<div class="acc-heading">
-					<h2>Password</h2>
-					<h3>Change your password or recover your current one.</h3>
+					<h2>Mật khẩu</h2>
+					<h3>Thay đổi mật khẩu</h3>
 				</div>
 				<form method="POST">
 				<div class="acc-content">
 					<div class="acc-wrap">
 						<div class="acc-left">
-							Current password
+							Mật khẩu cũ
 						</div>
 						<div class="acc-right">
 							<input type="password" name="currentPwd"/>
@@ -151,7 +161,7 @@
 
 					<div class="acc-wrap">
 						<div class="acc-left">
-							New password
+							Mật khẩu mới
 						</div>
 						<div class="acc-right">
 							<input type="password" name="newPassword" />
@@ -163,7 +173,7 @@
 
 					<div class="acc-wrap">
 						<div class="acc-left">
-							Verify password
+							Nhập lại mật khẩu mới
 						</div>
 						<div class="acc-right">
 							<input type="password" name="rePassword"/>
@@ -176,7 +186,7 @@
 						<div class="acc-left">
 						</div>
 						<div class="acc-right">
-							<input type="Submit" name="submit" value="Save changes"/>
+							<input type="Submit" name="submit" value="Lưu thay đỏi"/>
 						</div>
 						<div class="settings-error">
 							<?php if(isset($error['fields'])){echo $error['fields'];}?>
@@ -201,6 +211,10 @@
 		</div>	
 	</div>
 	<!--RIGHTER ENDS-->
+	<div class="popupTweet"></div>
+	<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/messages.js"></script>
+	<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/postMessage.js"></script>
+
 </div>
 <!--CONTAINER_WRAP ENDS-->
 </div>

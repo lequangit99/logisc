@@ -1,11 +1,12 @@
-<?php
-    $dsn = 'mysql:host=localhost; dbname=logisc';
-    $user = 'root';
-    $pass = '091199';
+<?php 
+	$dsn = 'mysql:host=localhost; dbname=logisc';
+	$user = 'root';
+	$password = '';
+ 
 
-    try {
-        $pdo = new PDO($dsn,$user,$pass);
-    } catch (PDOException $e) {
-       echo 'Lỗi kết nối ' . $e->getMessage();
-    }
+	try{
+		$pdo = new PDO($dsn, $user, $password);
+	}catch(PDOException $e){
+		echo 'connection error! ' . $e;
+	}	
 ?>

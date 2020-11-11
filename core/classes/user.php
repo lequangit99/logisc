@@ -1,4 +1,8 @@
-<?php
+	<?php 
+ /*
+  Developed by Aizaz dinho (@aizazdinho)
+  Designed  by Meezan (@iamMeezi)
+ */
 class User{
 	
 	protected $pdo;
@@ -13,6 +17,12 @@ class User{
 		$data = trim($data);
 		$data = stripcslashes($data);
 		return $data;
+	}
+	
+	public function preventAccess($request, $currentFile, $currently){
+		if($request == 'GET' && $currentFile == $currently){
+			header('Location:'.BASE_URL.'index.php');
+		}
 	}
 	
 	public function search($search){
@@ -42,17 +52,17 @@ class User{
 	}
 
 
-    public function register($email, $password, $screenName){
-        $passwordHash = md5($password);
+	  public function register($email, $password, $screenName){
+	    $passwordHash = md5($password);
 	    $stmt = $this->pdo->prepare("INSERT INTO `users` (`email`, `password`, `screenName`, `profileImage`, `profileCover`) VALUES (:email, :password, :screenName, 'assets/images/defaultprofileimage.png', 'assets/images/defaultCoverImage.png')");
-        $stmt->bindParam(":email", $email, PDO::PARAM_STR);
-        $stmt->bindParam(":password", $passwordHash , PDO::PARAM_STR);
-        $stmt->bindParam(":screenName", $screenName, PDO::PARAM_STR);
-        $stmt->execute();
+	    $stmt->bindParam(":email", $email, PDO::PARAM_STR);
+ 	    $stmt->bindParam(":password", $passwordHash , PDO::PARAM_STR);
+	    $stmt->bindParam(":screenName", $screenName, PDO::PARAM_STR);
+	    $stmt->execute();
 
-        $user_id = $this->pdo->lastInsertId();
-        $_SESSION['user_id'] = $user_id;
-    }
+	    $user_id = $this->pdo->lastInsertId();
+	    $_SESSION['user_id'] = $user_id;
+	  }
 
 
 	public function userData($user_id){
@@ -103,6 +113,19 @@ class User{
 		}
 	}
 
+	public function delete($table, $array){
+		$sql   = "DELETE FROM " . $table;
+		$where = " WHERE ";
+
+		foreach($array as $key => $value){
+			$sql .= $where . $key . " = '" . $value . "'";
+			$where = " AND ";
+		}
+		$sql .= ";";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->execute();
+	}
+
 	public function checkUsername($username){
 		$stmt = $this->pdo->prepare("SELECT `username` FROM `users` WHERE `username` = :username");
 		$stmt->bindParam(':username', $username, PDO::PARAM_STR);
@@ -116,6 +139,7 @@ class User{
 		}
 	}
 	
+
 	public function checkPassword($password){
 		$stmt = $this->pdo->prepare("SELECT `password` FROM `users` WHERE `password` = :password");
 		$stmt->bindParam(':password', md5($password), PDO::PARAM_STR);
@@ -155,29 +179,66 @@ class User{
 	}
 
 	public function uploadImage($file){
-		$filename   = $file['name'];
-		$fileTmp    = $file['tmp_name'];
-		$fileSize   = $file['size'];
-		$errors     = $file['error'];
+ 		 	$filename   = $file['name'];
+			$fileTmp    = $file['tmp_name'];
+			$fileSize   = $file['size'];
+			$errors     = $file['error'];
 
-		$ext = explode('.', $filename);
-		$ext = strtolower(end($ext));
-		$allowed_extensions  = array('jpg','png','jpeg');
+ 			$ext = explode('.', $filename);
+			$ext = strtolower(end($ext));
+ 			
+ 			$allowed_extensions  = array('jpg','png','jpeg');
+		
+			if(in_array($ext, $allowed_extensions)){
+				
+				if($errors ===0){
+					
+					if($fileSize <= 2097152){
 
-		if(in_array($ext, $allowed_extensions)){
-			if($errors ===0){
-				if($fileSize <= 2097152){
-	 				$root = 'users/' . $filename;
-				  	move_uploaded_file($fileTmp,$root);
-					return $root;
+		 				$root = 'users/' . $filename;
+					  	 move_uploaded_file($fileTmp,$_SERVER['DOCUMENT_ROOT'].'/logisc/'.$root);
+						 return $root;
 
-				}else{
-						$GLOBALS['imgError'] = "File Size is too large";
-				    }
-		    }
+					}else{
+							$GLOBALS['imgError'] = "File Size is too large";
+					    }
+			    }
+			  }else{
+						$GLOBALS['imgError'] = "Only alloewd JPG, PNG JPEG extensions";
+		  	       }
+ 		}
+
+
+	public function timeAgo($datetime){
+		$time    = strtotime($datetime);
+ 		$current = time();
+ 		$seconds = $current - $time;
+ 		$minutes = round($seconds / 60);
+		$hours   = round($seconds / 3600);
+		$months  = round($seconds / 2600640);
+
+		if($seconds <= 60){
+			if($seconds == 0){
+				return 'now';
+			}else{
+				return $seconds.'s';
+			}
+		}else if($minutes <= 60){
+
+			return $minutes.'m';
+
+		}else if($hours <= 24){
+
+			return $hours.'h';
+
+		}else if($months <= 12){
+
+			return date('M j', $time);
+
 		}else{
-				$GLOBALS['imgError'] = "Only alloewd JPG, PNG JPEG extensions";
-	  	     }
+			return date('j M Y', $time);
+		}
 	}
+     
 }
 ?>

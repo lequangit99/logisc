@@ -11,7 +11,7 @@ $(function(){
 
       $.ajax({
         type: "POST",
-        url: "http://logisc/core/ajax/getHashtag.php",
+        url: "http://localhost/logisc/core/ajax/getHashtag.php",
         data: dataString,
         cache: false,
         success: function(data){
