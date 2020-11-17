@@ -44,7 +44,7 @@ if(isset($_POST['next'])){
   	<div class="nav-container">
   		<div class="nav-second">
   			<ul>
-  				<li><a href="#"<i class="fa fa-logisc" aria-hidden="true"></i></a></li>
+  				<li><a href="#" <i class="fa fa-logisc" aria-hidden="true"></i></a></li>
   			</ul>
   		</div><!-- nav second ends-->
   	</div><!-- nav container ends -->
@@ -60,10 +60,10 @@ if(isset($_POST['next'])){
    		<div class="step-wrapper">
   		    <div class="step-container">
   				<form method="post">
-  					<h2>Choose a Username</h2>
-  					<h4>Don't worry, you can always change it later.</h4>
+  					<h2>Tên hiển thị</h2>
+  					<h4>Có thể thay đổi nhiều lần</h4>
   					<div>
-  						<input type="text" name="username" placeholder="Username"/>
+  						<input type="text" name="username" placeholder="Tên hiển thị"/>
   					</div>
   					<div>
   						<ul>
@@ -71,7 +71,7 @@ if(isset($_POST['next'])){
   						</ul>
   					</div>
   					<div>
-  						<input type="submit" name="next" value="Next"/>
+  						<input type="submit" name="next" value="Tiếp theo"/>
   					</div>
   				 </form>
   			</div>
@@ -80,14 +80,14 @@ if(isset($_POST['next'])){
     <?php if ($_GET['step'] == '2'){?>
   	<div class='lets-wrapper'>
   		<div class='step-letsgo'>
-  			<h2>We're glad you're here, <?php echo $user->screenName; ?> </h2>
-  			<p>Tweety is a constantly updating stream of the coolest, most important news, media, sports, TV, conversations and more--all tailored just for you.</p>
+  			<h2>Chào mừng bạn đến với Logisc, <?php echo $user->screenName; ?> </h2>
+  			<p>Ở đây có mọi thứ</p>
   			<br/>
   			<p>
-  				Tell us about all the stuff you love and we'll help you get set up.
+				Chỗ này không biết viết gì này, không biết có nên xoá không
   			</p>
   			<span>
-  				<a href='../home.php' class='backButton'>Let's go!</a>
+  				<a href='../home.php' class='backButton'>Đi thôi</a>
   			</span>
   		</div>
   	</div>

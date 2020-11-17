@@ -1,14 +1,9 @@
 <?php
- /*
-  Developed by Aizaz dinho (@aizazdinho)
-  Designed  by Meezan (@iamMeezi)
- */
  class Follow extends User{
  	protected $message;
 
     public function __construct($pdo){
         $this->pdo = $pdo;
-		//Added below code for PHP 7
 		$this->message = new Message($this->pdo);
 
  
@@ -169,4 +164,3 @@
 	}
 
 }
-?>
