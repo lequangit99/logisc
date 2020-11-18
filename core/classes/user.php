@@ -1,4 +1,8 @@
-<?php 
+	<?php 
+ /*
+  Developed by Aizaz dinho (@aizazdinho)
+  Designed  by Meezan (@iamMeezi)
+ */
 class User{
 	
 	protected $pdo;
@@ -237,3 +241,4 @@ class User{
 	}
      
 }
+?>

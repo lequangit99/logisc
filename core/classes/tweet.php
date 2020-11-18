@@ -1,4 +1,8 @@
-<?php
+	<?php
+ /*
+  Developed by Aizaz dinho (@aizazdinho)
+  Designed  by Meezan (@iamMeezi)
+ */ 
 class Tweet extends User{
 	protected $message;
 
@@ -317,3 +321,4 @@ class Tweet extends User{
 		return $stmt->fetchAll(PDO::FETCH_OBJ);
 	}
 }
+?>	

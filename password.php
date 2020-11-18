@@ -1,4 +1,8 @@
 <?php 
+/*
+  Developed by Aizaz dinho (@aizazdinho)
+  Designed  by Meezan (@iamMeezi)
+*/
 	include 'core/init.php';
 	$user_id = $_SESSION['user_id'];
 	$user    = $getFromU->userData($user_id);

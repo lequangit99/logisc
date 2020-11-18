@@ -51,7 +51,7 @@
 					</ul>
 				</div>
 				<div class="message-body">
-					<h4>Recent</h4>
+					<h4>Gần đây</h4>
 					<div class="message-recent">
 					<?php foreach($messages as $message) :?>
 						<!--Direct Messages-->
@@ -143,7 +143,7 @@
 					</div>
 					<div class="message-h-cen">
 						<div class="message-head-img">
-						  <img src="<?php echo BASE_URL.$user->profileImage;?>"/><h4>Messages</h4>
+						  <img src="<?php echo BASE_URL.$user->profileImage;?>"/><h4>Tin nhắn</h4>
 						</div>
 					</div>
 					<div class="message-h-right">
@@ -152,13 +152,13 @@
 				</div>
 				<div class="message-del">
 					<div class="message-del-inner">
-						<h4>Are you sure you want to delete this message? </h4>
+						<h4>Bạn có muốn xoá không? </h4>
 						<div class="message-del-box">
 							<span>
-								<button class="cancel" value="Cancel">Cancel</button>
+								<button class="cancel" value="Cancel">Huỷ</button>
 							</span>
 							<span>	
-								<button class="delete" value="Delete">Delete</button>
+								<button class="delete" value="Delete">Xoá</button>
 							</span>
 						</div>
 					</div>
@@ -171,9 +171,9 @@
 				<div class="main-msg-footer">
 					<div class="main-msg-footer-inner">
 						<ul>
-							<li><textarea id="msg" name="msg" placeholder="Write some thing!"></textarea></li>
+							<li><textarea id="msg" name="msg" placeholder="Em ăn cơm chưa!"></textarea></li>
 							<li><input id="msg-upload" type="file" value="upload"/><label for="msg-upload"><i class="fa fa-camera" aria-hidden="true"></i></label></li>
-							<li><input id="send" data-user="<?php echo $messageFrom;?>" type="submit" value="Send"/></li>
+							<li><input id="send" data-user="<?php echo $messageFrom;?>" type="submit" value="Gửi"/></li>
 						</ul>
 					</div>
 				</div>

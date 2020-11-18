@@ -34,7 +34,7 @@
 				 	</div>
 				 	<div class="t-fo-right">
 			 			<span id="count">140</span>
-	 					<input type="submit"  id="post" name="addTweet" value="đăng"/>
+	 					<input type="submit"  id="post" name="addTweet" value="Đăng"/>
 				 	</div>
 			 	</form>
 				</div>

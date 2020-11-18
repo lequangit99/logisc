@@ -13,7 +13,7 @@
 			}
 
 			if(strlen($status) > 140){
-				$error  = "The text of your tweet is too long";
+				$error  = "Quá dài";
 			}
 
 			$tweet_id = $getFromU->create('tweets', array('status' => $status, 'tweetBy' => $user_id, 'tweetImage' => $tweetImage, 'postedOn' => date('Y-m-d H:i:s')));
@@ -25,11 +25,11 @@
 			$getFromT->addMention($status, $user_id, $tweet_id);
 
 
-			$result['success'] = "Your Tweet has been posted";
+			$result['success'] = "Tweet của bạn đã được đăng";
 			echo json_encode($result);	
 
 		}else {
-			$error = "Please type or choose image to tweet";
+			$error = "Viết gì đó hoặc đăng ảnh";
 		}
 
 		if(isset($error)){

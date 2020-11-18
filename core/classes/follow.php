@@ -1,9 +1,14 @@
 <?php
+ /*
+  Developed by Aizaz dinho (@aizazdinho)
+  Designed  by Meezan (@iamMeezi)
+ */
  class Follow extends User{
  	protected $message;
 
     public function __construct($pdo){
         $this->pdo = $pdo;
+		//Added below code for PHP 7
 		$this->message = new Message($this->pdo);
 
  
@@ -32,7 +37,7 @@
 				}
 			}else{
 				//edit button
-				return "<button class='f-btn' onclick=location.href='".BASE_URL."profileEdit.php'>Edit Profile</button>";
+				return "<button class='f-btn' onclick=location.href='".BASE_URL."profileEdit.php'>Chỉnh sửa thông tin</button>";
 			}
 		}else{
 			return "<button class='f-btn' onclick=location.href='".BASE_URL."index.php'><i class='fa fa-user-plus'></i>Follow</button>";
@@ -164,3 +169,4 @@
 	}
 
 }
+?>

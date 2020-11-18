@@ -48,7 +48,7 @@
       </div>
       <div class="retweet-popup-footer"> 
         <div class="retweet-popup-footer-right">
-          <button class="cancel-it f-btn">Cancel</button><button class="delete-it" data-tweet="<?php echo $tweet->tweetID;?>" type="submit">Delete</button>
+          <button class="cancel-it f-btn">Huỷ</button><button class="delete-it" data-tweet="<?php echo $tweet->tweetID;?>" type="submit">Xoá</button>
         </div>
       </div>
     </div>
